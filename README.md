@@ -14,5 +14,4 @@ Brillia is an educational web app for grades K-12 that provides adaptive lessons
 ## 🚀 Setup Instructions
 ### Clone Repo
 
-git clone https://github.com/<your-username>/brillia.git
-cd brillia
+git clone https://github.com/<your-username>/brillia.git && cd brillia
