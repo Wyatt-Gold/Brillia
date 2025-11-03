@@ -1,17 +1,23 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import lessons from './routes/lessons.js';
-import chat from './routes/chat.js';
-
-dotenv.config();
+const express = require('express');
 const app = express();
-app.use(cors());
+const PORT = 3000;
+
 app.use(express.json());
 
-app.get('/', (req, res) => res.send('Brillia Backend API Running ✅'));
-app.use('/api/lessons', lessons);
-app.use('/api/chat', chat);
+// Import routes
+const lessonRoutes = require('./routes/lessonRoutes');
+const progressRoutes = require('./routes/progressRoutes');
+const flashcardRoutes = require('./routes/flashcardRoutes');
+const chatRoutes = require('./routes/chatRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Use routes
+app.use('/lessons', lessonRoutes);
+app.use('/progress', progressRoutes);
+app.use('/flashcards', flashcardRoutes);
+app.use('/chat', chatRoutes);
+app.use('/admin', adminRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
