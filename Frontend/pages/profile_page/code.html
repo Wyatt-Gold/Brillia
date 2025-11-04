@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StudyBuddy - Student Profile</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13a4ec",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101c22",
+          },
+          fontFamily: {
+            "display": ["Lexend"]
+          },
+          borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
+<div class="flex flex-col min-h-screen">
+<header class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-10 border-b border-slate-200 dark:border-slate-800">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary size-7">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path></svg>
+</div>
+<h2 class="text-xl font-bold text-slate-900 dark:text-white">StudyBuddy</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Courses</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Resources</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center size-10 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path></svg>
+</button>
+<div class="size-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAL3xObhafwLT816p9RYT8IbEKXkjM6vDS5vrFDJHp4I0O3b5knT_bCzWRy901wA60r3Ewa9OlvrexWYLqsHJi0f2sgsk94Tkzw8VB2SjzrHPiixPPfbHFzrAvPWC6m6hhz-rzwVuDSDm3rXxVRUXYS0Mqc3ulmcAOSc3Zp2VoSUhgD97CrrAZtAC41vVPPP7zxCE4MWcC8qW53jOx0tRztUd51musFlFKfolM3ezr7LREUn15WIAlXiEvDy4-tjOiV5mE09T4paw");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+<div class="max-w-4xl mx-auto">
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white dark:bg-slate-900/50 p-6 md:p-8 rounded-xl shadow-sm">
+<div class="relative">
+<div class="size-32 md:size-40 rounded-full bg-cover bg-center ring-4 ring-white dark:ring-slate-900" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDezVYLp-KbghbIvHKxu91z4_VKU2uSMe_ypypyBtoj6IIMAzD_a1yNOk1LgnoWXyXRFEZFUX4b8hbfDRzOfLFQXEaHpUvFJlZP1EG4GPHX7MvRkBENYSg2G3XHV63L4b-WDAc5beFXzACYPo9eFdYrFZW5pX2vrcXzlPZ90E9xgDEZtdJJSIydliZdryDCco2FXA7czZu-zShAQtYOKOs5VP9IzHoMOWqo8JlfkVm6aMr-GNou5GotxE3974Yk5T2nP_zyxdaLCQ");'></div>
+<button class="absolute bottom-1 right-1 flex items-center justify-center size-9 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors">
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path></svg>
+</button>
+</div>
+<div class="flex flex-col items-center md:items-start text-center md:text-left">
+<h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Sophia Carter</h1>
+<p class="text-primary font-semibold mt-1 text-lg">Level 7</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Joined 2 months ago</p>
+</div>
+</div>
+<div class="mt-8">
+<div class="border-b border-slate-200 dark:border-slate-800">
+<nav aria-label="Tabs" class="-mb-px flex gap-6">
+<a class="shrink-0 border-b-2 border-primary px-1 pb-4 text-sm font-semibold text-primary" href="#">Overview</a>
+<a class="shrink-0 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 dark:text-slate-400 dark:hover:border-slate-700 dark:hover:text-slate-300" href="#">Progress</a>
+<a class="shrink-0 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 dark:text-slate-400 dark:hover:border-slate-700 dark:hover:text-slate-300" href="#">Achievements</a>
+</nav>
+</div>
+</div>
+<div class="mt-8">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Learning Summary</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-lg">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Courses Completed</p>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">12</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-lg">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Hours Studied</p>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">35</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-lg">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Average Score</p>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">88%</p>
+</div>
+</div>
+</div>
+<div class="mt-12">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Recent Activity</h2>
+<div class="flow-root">
+<ul class="-mb-8" role="list">
+<li>
+<div class="relative pb-8">
+<span aria-hidden="true" class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-slate-200 dark:bg-slate-800"></span>
+<div class="relative flex items-start space-x-4">
+<div>
+<div class="relative px-1">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 ring-4 ring-background-light dark:ring-background-dark">
+<svg class="h-5 w-5 text-white" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg>
+</div>
+</div>
+</div>
+<div class="min-w-0 flex-1 py-1.5">
+<div class="text-sm text-slate-500 dark:text-slate-400">
+                          Completed <span class="font-medium text-slate-700 dark:text-slate-300">'Introduction to Fractions'</span>
+<span class="whitespace-nowrap ml-2">2 days ago</span>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<div class="relative pb-8">
+<span aria-hidden="true" class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-slate-200 dark:bg-slate-800"></span>
+<div class="relative flex items-start space-x-4">
+<div>
+<div class="relative px-1">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 ring-4 ring-background-light dark:ring-background-dark">
+<svg class="h-5 w-5 text-white" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M232,64H208V56a16,16,0,0,0-16-16H64A16,16,0,0,0,48,56v8H24A16,16,0,0,0,8,80V96a40,40,0,0,0,40,40h3.65A80.13,80.13,0,0,0,120,191.61V216H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16H136V191.58c31.94-3.23,58.44-25.64,68.08-55.58H208a40,40,0,0,0,40-40V80A16,16,0,0,0,232,64ZM48,120A24,24,0,0,1,24,96V80H48v32q0,4,.39,8Zm144-8.9c0,35.52-28.49,64.64-63.51,64.9H128a64,64,0,0,1-64-64V56H192ZM232,96a24,24,0,0,1-24,24h-.5a81.81,81.81,0,0,0,.5-8.9V80h24Z"></path></svg>
+</div>
+</div>
+</div>
+<div class="min-w-0 flex-1 py-1.5">
+<div class="text-sm text-slate-500 dark:text-slate-400">
+                          Scored <span class="font-medium text-slate-700 dark:text-slate-300">95%</span> on 'States and Capitals' quiz
+                          <span class="whitespace-nowrap ml-2">1 week ago</span>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<div class="relative">
+<div class="relative flex items-start space-x-4">
+<div>
+<div class="relative px-1">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/80 ring-4 ring-background-light dark:ring-background-dark">
+<svg class="h-5 w-5 text-white" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"></path></svg>
+</div>
+</div>
+</div>
+<div class="min-w-0 flex-1 py-1.5">
+<div class="text-sm text-slate-500 dark:text-slate-400">
+                          Joined the <span class="font-medium text-slate-700 dark:text-slate-300">'Math Whizzes'</span> study group
+                          <span class="whitespace-nowrap ml-2">2 weeks ago</span>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

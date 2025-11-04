@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
-import Brillia from './Brillia'
+import HomePage from './pages/HomePage'
+import LessonsPage from './pages/LessonsPage'
+import SubLessonsPage from './pages/SubLessonsPage'
+import Chatbot from './components/Chatbot'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <Brillia />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/lessons" element={<LessonsPage />} />
+        <Route path="/lessons/:subjectId" element={<LessonsPage />} />
+        <Route path="/lessons/:subjectId/topics" element={<SubLessonsPage />} />
+      </Routes>
+      <Chatbot />
+    </Router>
   )
 }
 
