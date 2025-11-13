@@ -1,22 +1,45 @@
-exports.getSubjects = (req, res) => {
-    // TODO: Fetch subjects from DB
-    res.json([{ id: 1, name: 'Math' }, { id: 2, name: 'Science' }]);
-  };
-  
-  exports.getLessonsBySubject = (req, res) => {
-    const { subjectId } = req.query;
-    // TODO: Fetch lessons for subject
-    res.json([{ id: 1, title: 'Algebra', subjectId }, { id: 2, title: 'Geometry', subjectId }]);
-  };
-  
-  exports.getLesson = (req, res) => {
-    const { id } = req.params;
-    // TODO: Fetch main lesson content
-    res.json({ id, title: 'Sample Lesson', content: 'Lesson content here...' });
-  };
-  
-  exports.getQuiz = (req, res) => {
-    const { id } = req.params;
-    // TODO: Fetch lesson quiz
-    res.json({ lessonId: id, quiz: ['Q1', 'Q2', 'Q3'] });
-  };
+const LessonModel = require('../models/lessonModel');
+const supabase = require('../database/supabaseClient');
+
+// GET /subjects
+exports.getSubjects = async (req, res) => {
+  try {
+    const subjects = await LessonModel.getAllSubjects();
+    res.json(subjects);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// GET /lessons?subjectId=1
+exports.getLessonsBySubject = async (req, res) => {
+  const { subjectId } = req.query;
+  try {
+    const lessons = await LessonModel.getLessonsBySubject(subjectId);
+    res.json(lessons);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// GET /lessons/:id
+exports.getLesson = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const lesson = await LessonModel.getLessonById(id);
+    res.json(lesson);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// GET /lessons/:id/quiz
+exports.getQuiz = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const quiz = await LessonModel.getQuizByLessonId(id);
+    res.json(quiz);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
