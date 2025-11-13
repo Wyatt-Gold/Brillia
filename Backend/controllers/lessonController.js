@@ -1,5 +1,12 @@
+// Backend/controllers/lessonController.js
 const LessonModel = require('../models/lessonModel');
-const supabase = require('../database/supabaseClient');
+// const supabase = require('../database/supabaseClient'); 
+
+// Helper for consistent error handling
+const handleError = (res, err, action) => {
+  console.error(`Error while ${action}:`, err);
+  res.status(500).json({ error: `Failed to ${action}`, details: err.message });
+};
 
 // GET /subjects
 exports.getSubjects = async (req, res) => {
@@ -7,7 +14,7 @@ exports.getSubjects = async (req, res) => {
     const subjects = await LessonModel.getAllSubjects();
     res.json(subjects);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    handleError(res, err, 'fetch subjects');
   }
 };
 
@@ -15,10 +22,13 @@ exports.getSubjects = async (req, res) => {
 exports.getLessonsBySubject = async (req, res) => {
   const { subjectId } = req.query;
   try {
+    if (!subjectId) {
+      return res.status(400).json({ error: "subjectId query parameter is required" });
+    }
     const lessons = await LessonModel.getLessonsBySubject(subjectId);
     res.json(lessons);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    handleError(res, err, 'fetch lessons by subject');
   }
 };
 
@@ -27,9 +37,12 @@ exports.getLesson = async (req, res) => {
   const { id } = req.params;
   try {
     const lesson = await LessonModel.getLessonById(id);
+    if (!lesson) {
+      return res.status(404).json({ error: "Lesson not found" });
+    }
     res.json(lesson);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    handleError(res, err, 'fetch lesson');
   }
 };
 
@@ -40,6 +53,6 @@ exports.getQuiz = async (req, res) => {
     const quiz = await LessonModel.getQuizByLessonId(id);
     res.json(quiz);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    handleError(res, err, 'fetch quiz');
   }
 };
