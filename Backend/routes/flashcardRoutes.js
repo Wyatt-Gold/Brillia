@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const flashcardController = require('../controllers/flashcardController');
 
-router.post('/generate', flashcardController.generateFlashcard);
-router.post('/:id/review', flashcardController.reviewFlashcard);
+router.get('/:userId', flashcardController.getUserFlashcards);
+router.post('/generate', flashcardController.generateFlashcards);
+router.post('/review', flashcardController.reviewFlashcard);
 
 module.exports = router;

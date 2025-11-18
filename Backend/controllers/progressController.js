@@ -1,28 +1,51 @@
-// Backend/controllers/progressController.js
+const ProgressModel = require('../models/progressModel');
 
-exports.showProgress = async (req, res) => {
-    try {
-        // TODO: Fetch user progress from DB
-        res.json([
-            { lessonId: 1, progress: 50 },
-            { lessonId: 2, progress: 80 }
-        ]);
-    } catch (err) {
-        console.error("Error fetching progress:", err);
-        res.status(500).json({ error: "Failed to fetch progress", details: err.message });
-    }
+// GET /api/progress/:userId
+exports.getUserProgress = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const progress = await ProgressModel.getProgressByUserId(userId);
+    res.json(progress);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
-  
+
+// POST /api/progress/update
+exports.updateUserProgress = async (req, res) => {
+  const { userId, lessonId, masteryLevel } = req.body;
+
+  try {
+    const saved = await ProgressModel.updateProgress(userId, lessonId, masteryLevel);
+    res.json({ success: true, updated: saved });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// GET /api/progress/:userId/roadmap
 exports.getRoadmap = async (req, res) => {
-    try {
-        // TODO: Generate individualized roadmap logic
-        res.json([
-            { lessonId: 1, status: 'complete' },
-            { lessonId: 2, status: 'pending' },
-            { lessonId: 3, status: 'locked' }
-        ]);
-    } catch (err) {
-        console.error("Error fetching roadmap:", err);
-        res.status(500).json({ error: "Failed to fetch roadmap", details: err.message });
-    }
+  const { userId } = req.params;
+
+  try {
+    const progress = await ProgressModel.getProgressByUserId(userId);
+
+    // Placeholder roadmap logic
+    // For example: recommend lessons where mastery < 0.5
+    const recommended = progress.filter(p => p.mastery_level < 0.5);
+
+    res.json({
+      userId,
+      roadmap: recommended.length > 0
+        ? recommended.map(r => ({
+            lessonId: r.lesson_id,
+            reason: "Low mastery level",
+          }))
+        : [{ message: "All lessons mastered!" }]
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
