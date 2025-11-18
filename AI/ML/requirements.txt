@@ -1,0 +1,10 @@
+# ML Service Dependencies
+# This file contains dependencies specific to the ML service.
+# Do not edit requirments.txt (note: existing file has typo in name).
+
+# OpenAI SDK v1 for response generation
+openai>=1.52.0
+
+# Testing framework
+pytest>=8.0.0
+
