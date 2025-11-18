@@ -1,0 +1,49 @@
+# ML Service Setup & Backend Usage
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn api.main:app --host 0.0.0.0 --port 8001
+```
+
+The service runs at:
+http://localhost:8001
+
+## Endpoint
+
+POST /generate
+
+Request Body
+
+```json
+{ "query": "text to process" }
+```
+
+Response
+
+```json
+{ "answer": "model output" }
+```
+
+## How the Backend Calls This Service
+
+```js
+import axios from "axios";
+
+export async function callMLService(query) {
+const res = await axios.post(
+`${process.env.ML_SERVICE_URL}/generate`,
+{ query }
+);
+return res.data;
+}
+```
+
+Backend .env must include:
+
+```
+ML_SERVICE_URL=http://localhost:8001
+
+```
