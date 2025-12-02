@@ -15,14 +15,30 @@ function FlashcardPage() {
   const [current, setCurrent] = useState(0);
   const [flipped, setFlipped] = useState(false);
 
+  const transitionDuration = 600; // ms, should match CSS .flashcard transition
+
   const nextCard = () => {
-    setCurrent((prev) => (prev + 1) % dummyCards.length);
-    setFlipped(false);
+    if (flipped) {
+      setFlipped(false);
+      setTimeout(() => {
+        setCurrent((prev) => (prev + 1) % dummyCards.length);
+      }, transitionDuration);
+    } else {
+      setCurrent((prev) => (prev + 1) % dummyCards.length);
+    }
   };
 
   const prevCard = () => {
-    setCurrent((prev) => (prev - 1 + dummyCards.length) % dummyCards.length);
-    setFlipped(false);
+    if (flipped) {
+      setFlipped(false);
+      setTimeout(() => {
+        setCurrent(
+          (prev) => (prev - 1 + dummyCards.length) % dummyCards.length
+        );
+      }, transitionDuration);
+    } else {
+      setCurrent((prev) => (prev - 1 + dummyCards.length) % dummyCards.length);
+    }
   };
 
   return (
