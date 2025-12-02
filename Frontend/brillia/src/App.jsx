@@ -1,9 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
-import HomePage from './pages/HomePage'
-import LessonsPage from './pages/LessonsPage'
-import SubLessonsPage from './pages/SubLessonsPage'
-import Chatbot from './components/Chatbot'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import HomePage from "./pages/HomePage";
+import LessonsPage from "./pages/LessonsPage";
+import SubLessonsPage from "./pages/SubLessonsPage";
+import FlashcardPage from "./pages/FlashcardPage";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
         <Route path="/lessons" element={<LessonsPage />} />
         <Route path="/lessons/:subjectId" element={<LessonsPage />} />
         <Route path="/lessons/:subjectId/topics" element={<SubLessonsPage />} />
+        <Route path="/flashcards" element={<FlashcardPage />} />
       </Routes>
       <Chatbot />
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
