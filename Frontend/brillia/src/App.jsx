@@ -1,17 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Brillia from './Brillia'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import HomePage from "./pages/HomePage";
+import LessonsPage from "./pages/LessonsPage";
+import SubLessonsPage from "./pages/SubLessonsPage";
+import FlashcardPage from "./pages/FlashcardPage";
+import StatusPage from "./pages/StatusPage";
+import Chatbot from "./components/Chatbot";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <Brillia />
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/lessons" element={<LessonsPage />} />
+        <Route path="/lessons/:subjectId" element={<LessonsPage />} />
+        <Route path="/lessons/:subjectId/topics" element={<SubLessonsPage />} />
+        <Route path="/flashcards" element={<FlashcardPage />} />
+        <Route path="/status" element={<StatusPage />} />
+      </Routes>
+      <Chatbot />
+    </Router>
+  );
 }
 
-export default App
+export default App;

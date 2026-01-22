@@ -13,6 +13,9 @@ export default function Header() {
           <a href="#" className="hover:text-sky-600 font-medium">
             Subjects
           </a>
+          <a href="/flashcards" className="hover:text-sky-600 font-medium">
+            Flashcards
+          </a>
           <a href="#" className="hover:text-sky-600 font-medium">
             Resources
           </a>

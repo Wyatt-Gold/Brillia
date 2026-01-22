@@ -1,2 +1,29 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
+/* Tailwind v4 theme configuration - the @theme warning can be ignored */
+@theme {
+  --color-primary: #13a4ec;
+  --color-background-light: #f6f7f8;
+  --color-background-dark: #101c22;
+
+  --font-family-display: 'Lexend', sans-serif;
+
+  --radius: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+body {
+  font-family: 'Lexend', sans-serif;
+}
