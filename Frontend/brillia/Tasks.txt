@@ -1,0 +1,9 @@
+Sprint 3 frontend tasks:
+User status dashboard - Build a basic status page with placeholder progress bars and sections for lesson completion
+Flashcard Page - Create a flashcard page with simple card-flip interactions using temporary dummy card data
+Lesson Flow Page - Add pre-reqs and nest-steps sections and a quiz placeholder to lesson detail pages to visualize the learning flow
+
+Spring 4 fronted taks:
+Connecting chatbot with backend - Connect chatbot UI to backend /chat endpoint; handle user input & response display.
+Lesson Detail View - Create a new route for viewing an individual lesson with full text/content.
+Dynamic Lessons Page with backend - Fetch real lesson data from backend /lessons endpoint and display dynamically.

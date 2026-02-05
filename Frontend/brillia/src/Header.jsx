@@ -1,21 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <header className="w-full border-b border-gray-200">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-8 py-4">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-sky-600 rounded-sm" />
-          <span className="font-semibold text-lg">Brillia</span>
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-sky-600 rounded-sm" />
+            <span className="font-semibold text-lg">Brillia</span>
+          </Link>
         </div>
 
         <nav className="flex items-center gap-8">
-          <a href="#" className="hover:text-sky-600 font-medium">
+          <Link to="/subjects" className="hover:text-sky-600 font-medium">
             Subjects
-          </a>
-          <a href="/flashcards" className="hover:text-sky-600 font-medium">
+          </Link>
+          <Link to="/flashcards" className="hover:text-sky-600 font-medium">
             Flashcards
-          </a>
+          </Link>
           <a href="#" className="hover:text-sky-600 font-medium">
             Resources
           </a>

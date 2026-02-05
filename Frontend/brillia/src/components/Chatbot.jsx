@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { startChatSession, sendChatMessage, getChatHistory } from '../services/api';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,6 +8,9 @@ export default function Chatbot() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [chatSize, setChatSize] = useState({ width: 384, height: 500 });
+  const [sessionId, setSessionId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
   const chatboxRef = useRef(null);
   const isResizing = useRef(false);
   const messagesEndRef = useRef(null);
@@ -19,9 +23,40 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = (e) => {
+  // Initialize chat session when chatbot is opened
+  useEffect(() => {
+    async function initSession() {
+      if (isOpen && !sessionId) {
+        try {
+          setConnectionError(false);
+          const response = await startChatSession();
+          setSessionId(response.sessionId);
+
+          // Load chat history if available
+          if (response.sessionId) {
+            try {
+              const history = await getChatHistory(response.sessionId);
+              if (history && history.messages && history.messages.length > 0) {
+                setMessages(history.messages);
+              }
+            } catch (historyErr) {
+              // History fetch failed, keep default welcome message
+              console.log("Could not load chat history");
+            }
+          }
+        } catch (err) {
+          console.error("Failed to start chat session:", err);
+          setConnectionError(true);
+          // Continue without session - will use fallback responses
+        }
+      }
+    }
+    initSession();
+  }, [isOpen, sessionId]);
+
+  const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (inputValue.trim() === '') return;
+    if (inputValue.trim() === '' || isLoading) return;
 
     const userMessage = {
       id: messages.length + 1,
@@ -29,18 +64,45 @@ export default function Chatbot() {
       sender: 'user'
     };
 
-    setMessages([...messages, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+    setIsLoading(true);
 
-    // Simulate bot response (placeholder for ML model)
-    setTimeout(() => {
-      const botMessage = {
+    try {
+      if (sessionId && !connectionError) {
+        // Send message to backend
+        const response = await sendChatMessage(sessionId, inputValue);
+
+        const botMessage = {
+          id: messages.length + 2,
+          text: response.message || response.response || "I received your message!",
+          sender: 'bot'
+        };
+        setMessages(prev => [...prev, botMessage]);
+      } else {
+        // Fallback response when not connected to backend
+        setTimeout(() => {
+          const botMessage = {
+            id: messages.length + 2,
+            text: "I'm currently offline but I'll help you as soon as I'm back online! In the meantime, feel free to explore our lessons and flashcards.",
+            sender: 'bot'
+          };
+          setMessages(prev => [...prev, botMessage]);
+        }, 500);
+      }
+    } catch (err) {
+      console.error("Failed to send message:", err);
+      setConnectionError(true);
+
+      const errorMessage = {
         id: messages.length + 2,
-        text: "Thanks for your message! I'm currently a placeholder and will be connected to our ML model soon.",
+        text: "Sorry, I'm having trouble connecting right now. Please try again later or explore our lessons while I get back online!",
         sender: 'bot'
       };
-      setMessages(prev => [...prev, botMessage]);
-    }, 500);
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleMouseDown = (e) => {
@@ -116,7 +178,9 @@ export default function Chatbot() {
               <span className="material-symbols-outlined text-2xl">smart_toy</span>
               <div>
                 <h3 className="font-bold">Brillia AI</h3>
-                <p className="text-xs opacity-90">Always here to help</p>
+                <p className="text-xs opacity-90">
+                  {connectionError ? 'Offline mode' : 'Always here to help'}
+                </p>
               </div>
             </div>
             <button
@@ -127,6 +191,14 @@ export default function Chatbot() {
               <span className="material-symbols-outlined">close</span>
             </button>
           </div>
+
+          {/* Connection Warning */}
+          {connectionError && (
+            <div className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 px-4 py-2 text-sm">
+              <span className="material-symbols-outlined text-sm align-middle mr-1">warning</span>
+              Connection issue - responses may be limited
+            </div>
+          )}
 
           {/* Messages Container */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -146,6 +218,17 @@ export default function Chatbot() {
                 </div>
               </div>
             ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="max-w-[75%] rounded-2xl px-4 py-2 bg-gray-100 dark:bg-gray-700">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
@@ -158,11 +241,12 @@ export default function Chatbot() {
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Type your message..."
                 className="flex-1 rounded-full border border-gray-300 bg-gray-50 px-4 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                disabled={isLoading}
               />
               <button
                 type="submit"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white transition-transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
-                disabled={inputValue.trim() === ''}
+                disabled={inputValue.trim() === '' || isLoading}
                 aria-label="Send message"
               >
                 <span className="material-symbols-outlined">send</span>

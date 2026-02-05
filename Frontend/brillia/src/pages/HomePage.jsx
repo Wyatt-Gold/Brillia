@@ -41,7 +41,7 @@ export default function HomePage() {
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">Brillia</h2>
           </Link>
           <nav className="hidden items-center gap-8 md:flex">
-            <Link className="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary" to="/lessons">Subjects</Link>
+            <Link className="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary" to="/subjects">Subjects</Link>
             <a className="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary" href="#">Resources</a>
             <a className="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary" href="#">Support</a>
           </nav>
@@ -79,7 +79,7 @@ export default function HomePage() {
               {subjects.map((subject) => (
                 <Link
                   key={subject.id}
-                  to={`/lessons/${subject.id}`}
+                  to={`/subjects/${subject.id}/lessons`}
                   className="flex flex-col gap-4 rounded-lg bg-background-light p-4 shadow-sm transition-shadow hover:shadow-lg dark:bg-background-dark dark:hover:bg-primary/10"
                 >
                   <div className="aspect-video w-full rounded-lg bg-cover bg-center" style={{backgroundImage: `url("${subject.img}")`}}></div>
