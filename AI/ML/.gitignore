@@ -1,1 +1,8 @@
 AI/ML/venv/
+
+
+.env
+AI/ML/.env
+
+__pycache__/
+*.pyc
